@@ -1,0 +1,38 @@
+import qrcode
+
+def generate_qr_code(data, file_name="qrcode.png"):
+    """
+    Generates a QR code from the given data and saves it as a PNG file.
+
+    Args:
+        data (str): The data to encode in the QR code.
+        file_name (str): The name of the file to save the QR code image (default is "qrcode.png").
+    """
+    # Create a QRCode object with the provided data
+    qr = qrcode.QRCode(
+        version=1,  # Control the size of the QR code
+        error_correction=qrcode.constants.ERROR_CORRECT_L,  # Error correction level (L=Low)
+        box_size=10,  # Size of each box in the QR code grid
+        border=4,  # Width of the border (number of boxes)
+    )
+    
+    # Add data to the QR code
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    # Create an image from the QR code
+    img = qr.make_image(fill='black', back_color='white')
+
+    # Save the image as a PNG file
+    img.save(file_name)
+    print(f"QR Code generated and saved as {file_name}")
+
+def main():
+    # Get user input for the data to encode in the QR code
+    data = input("Enter the data (URL, text, etc.) to encode in the QR code: ")
+    
+    # Generate QR code
+    generate_qr_code(data)
+
+if __name__ == "__main__":
+    main()
